@@ -1,17 +1,38 @@
-name: Label PRs
+name: Label PR & Check for clickup ticket
 
-on:
+on:  
   pull_request:
+    branches: 
+      - main
+      - develop      
     types: [opened, reopened, unlabeled, edited]
 
 jobs:
-  build:
-
+  link-to-clickup-ticket:
     runs-on: ubuntu-latest
-
+    if: "contains(github.head_ref, '/CU-')"
     steps:
-    - name: ok
-      run: echo ${{ secrets.GITHUB_TOKEN }}
-    - uses: srvaroa/labeler@master
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: jungwinter/split@v2
+        id: splitA
+        with:
+          separator: '/CU-'
+          msg: ${{github.head_ref}}
+      - uses: jungwinter/split@v2
+        id: splitB
+        with:
+          separator: '-'
+          msg: ${{steps.splitA.outputs._1}}      
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            [Link to ClickUp ticket CU-${{steps.splitB.outputs._0}}](https://app.clickup.com/t/${{steps.splitB.outputs._0}})            
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+  
+  label-pr:     
+    name: Label PR  
+    runs-on: ubuntu-latest
+    steps:
+      - uses: srvaroa/labeler@master
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

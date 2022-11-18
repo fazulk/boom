@@ -1,0 +1,43 @@
+name: Create PR
+
+on:
+  push:    
+    branches:      
+      - 'feature/**'      
+      - 'fix/**'
+      - 'refactor/**'
+      - 'hotfix/**'
+
+jobs:
+  main-destination:    
+    name: Create HotFix PR
+    runs-on: ubuntu-latest
+    if: "contains(github.ref_name, 'hotfix/')"    
+    steps:  
+      - uses: actions/checkout@v3
+
+      - name: Create PR draft and label
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: main
+          github_token: ${{ secrets.BUILD_RELEASE }}
+          pr_title: ${{ github.ref_name }}
+          pr_allow_empty: true
+
+
+  dev-destination:    
+    name: Create PR
+    if: "!contains(github.ref_name, 'hotfix/')"    
+    runs-on: ubuntu-latest    
+    steps:  
+      - uses: actions/checkout@v3
+
+      - name: Create PR draft and label
+        uses: repo-sync/pull-request@v2    
+        with:
+          destination_branch: develop
+          github_token: ${{ secrets.BUILD_RELEASE }}
+          pr_title: ${{ github.ref_name }}
+          pr_allow_empty: true
+          pr_draft: true
+
