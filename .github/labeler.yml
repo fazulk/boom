@@ -12,3 +12,7 @@ labels:
   branch: "^(refactor|Refactor).*"
 - label: "refactor"
   title: "^(refactor|Refactor).*"
+- label: "hotfix"
+  branch: "^(hotfix|Hotfix).*"
+- label: "hotfix"
+  title: "^(hotfix|Hotfix).*"
