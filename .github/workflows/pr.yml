@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: ok
-      run: echo ${{ secrets.GITHUB_TOKEN }}
     - uses: srvaroa/labeler@master
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
