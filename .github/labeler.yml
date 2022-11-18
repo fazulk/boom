@@ -7,5 +7,4 @@ labels:
   title: "^(fix|Fix).*"
   branch: "^(fix|Fix).*"
 - label: "refactor"
-  title: "^refactor.*"
   branch: "^refactor.*"
