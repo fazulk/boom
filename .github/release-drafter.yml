@@ -1,0 +1,35 @@
+commitish: main
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels: 
+      - 'feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+      - 'hotfix'
+  - title: '🧰 Refactor'  
+    labels: 
+      - 'refactor'  
+exclude-labels:
+  - 'release'
+  - 'skip-changelog'
+template: |
+  ## Changes
+
+  $CHANGES
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+      - 'feature'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
