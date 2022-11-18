@@ -1,0 +1,10 @@
+labels:
+- label: "feature"
+  title: "^(feat|Feat).*"
+  branch: "^(feat|Feat).*"
+- label: "fix"
+  title: "^(fix|Fix).*"
+  branch: "^(fix|Fix).*"
+- label: "refactor"
+  title: "^(refactor|Refactor).*"
+  branch: "^(refactor|Refactor).*"
