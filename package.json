@@ -1,6 +1,6 @@
 {
   "name": "boom",
-  "version": "v0.3.6",
+  "version": "v0.4.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
