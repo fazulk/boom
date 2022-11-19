@@ -62,7 +62,10 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-          token: ${{ secrets.BUILD_RELEASE }}       
+          token: ${{ secrets.BUILD_RELEASE }}     
+
+      - name: get tag
+        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV  
 
       # - uses: release-drafter/release-drafter@v5    
       #   id: pre_release           
@@ -74,14 +77,14 @@ jobs:
         with:
           file: package.json
           field: version
-          value: ${{ steps.pre_release.outputs.tag_name }}        
+          value: ${{ env.GIT_TAG }}        
 
       - name: commit and push package.json
         run: |
          git config user.name github-actions
          git config user.email github-actions@github.com        
          git add -A
-         git commit -m "Updated version to ${{ steps.pre_release.outputs.tag_name }}"         
+         git commit -m "Updated version to ${{ env.GIT_TAG }}"         
          git push
 
       # - uses: eregon/publish-release@v1
