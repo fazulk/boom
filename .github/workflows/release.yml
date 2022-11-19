@@ -1,6 +1,8 @@
 name: Release
 
-on: workflow_dispatch 
+on:
+  release:
+    types: [published]
 
 env:
   BUILD_RELEASE: ${{ secrets.BUILD_RELEASE }}
