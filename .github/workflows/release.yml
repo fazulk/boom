@@ -64,10 +64,10 @@ jobs:
           ref: main
           token: ${{ secrets.BUILD_RELEASE }}       
 
-      - uses: release-drafter/release-drafter@v5    
-        id: pre_release           
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}                     
+      # - uses: release-drafter/release-drafter@v5    
+      #   id: pre_release           
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}                     
       
       - name: Update package.json version
         uses: jossef/action-set-json-field@v1
@@ -84,11 +84,11 @@ jobs:
          git commit -m "Updated version to ${{ steps.pre_release.outputs.tag_name }}"         
          git push
 
-      - uses: eregon/publish-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          release_id: ${{ steps.pre_release.outputs.id }}  
+      # - uses: eregon/publish-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     release_id: ${{ steps.pre_release.outputs.id }}  
 
         # - name: 'post to notion'
         #   run: node ./.github/post_to_notion.js --notion_key=${{ secrets.NOTION_KEY }} --databaseId="${{ secrets.NOTION_CHANGELOG_DB }}" --repo="${{ github.repository }}" --release=${{ steps.pre_release.outputs.tag_name }} --changelog="${{ steps.pre_release.outputs.body }}"
